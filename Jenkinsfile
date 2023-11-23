@@ -53,6 +53,7 @@ pipeline{
         stage('Nexus Uploder'){
             steps{
                 script{
+                    def readPomVersion = readMavenPom file: 'pom.xml'
                     nexusArtifactUploader artifacts: 
                     [
                         [
@@ -68,7 +69,7 @@ pipeline{
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
                             repository: 'Abduldevopsapp-release/', 
-                            version: '3.0.0'
+                            version: "${readPomVersion.version}"
                 }
             }
         }
