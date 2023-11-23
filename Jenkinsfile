@@ -67,7 +67,7 @@ pipeline{
                             nexusUrl: '54.227.211.165:8081', 
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
-                            repository: 'http://54.227.211.165:8081/repository/Abduldevopsapp-release/', 
+                            repository: 'Abduldevopsapp-release/', 
                             version: '3.0.0'
                 }
             }
