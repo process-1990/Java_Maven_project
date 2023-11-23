@@ -50,6 +50,28 @@ pipeline{
                 }
             }
         }
+        stage('Nexus Uploder'){
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'springboot', 
+                            classifier: '', 
+                            file: 'target/springboot-3.0.0.jar', 
+                            type: 'jar'
+                            ]
+                            ], 
+                            credentialsId: 'Nexuscred', 
+                            groupId: 'com.example', 
+                            nexusUrl: '54.227.211.165:8081', 
+                            nexusVersion: 'nexus3', 
+                            protocol: 'http', 
+                            repository: 'http://54.227.211.165:8081/repository/Abduldevopsapp-release/', 
+                            version: '3.0.0'
+                }
+            }
+        }
         }
         
         
