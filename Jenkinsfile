@@ -53,7 +53,25 @@ pipeline{
         stage('Nexus Uploder'){
             steps{
                 script{
-                    nexusArtifactUploader artifacts: [[artifactId: 'springboot', classifier: '', file: 'target/Uber.jar', type: 'jar']], credentialsId: 'Nexuscred2', groupId: 'com.example', nexusUrl: '44.204.0.94:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'Abduldevopsapp-release', version: '7.0.0'
+                    def readPomVersion = readMavenPom file: 'pom.xml'
+
+                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "Abduldevopsapp-snapshot" : "Abduldevopsapp-release" 
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [
+                            artifactId: 'springboot', 
+                            classifier: '', 
+                            file: 'target/Uber.jar', 
+                            type: 'jar'
+                            ]
+                            ], 
+                            credentialsId: 'Nexuscred2', 
+                            groupId: 'com.example', 
+                            nexusUrl: '44.204.0.94:8081', 
+                            nexusVersion: 'nexus3', 
+                            protocol: 'http', 
+                            repository: nexusRepo, 
+                            version: "${readPomVersion.version}"
                 }
             }
         }
