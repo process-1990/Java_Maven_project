@@ -86,7 +86,18 @@ pipeline{
             }
 
         }
+        stage('Image Upload to Dockerhub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerhubpassword', variable: 'dockerhubpassword')]) {
+                sh'docker login -u abduldevops247 -p ${dockerhubpassword}'
+                sh'docker image push abduldevops247/$JOB_NAME:v2.$BUILD_ID'
+                sh'docker image push abduldevops247/$JOB_NAME:latest'
+                }
+            }
+        }
      }
+
         
         
  }
